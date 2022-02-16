@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 31
+        targetSdk 31
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    publishing {
+        multipleVariants {
+            allVariants()
+        }
+    }
+}
+
+afterEvaluate {
+    task androidSourcesJar(type: Jar) {
+        setArchiveClassifier('sources')
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    publishing {
+        publications {
+            allVariants(MavenPublication) {
+                from components.default
+                artifact androidSourcesJar
+                groupId 'com.example'
+                artifactId 'lib-a'
+                version '0.0.1-SNAPSHOT'
+            }
+        }
+    }
+}
+
+
