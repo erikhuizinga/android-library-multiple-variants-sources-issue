@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 31
+        targetSdk 31
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.example:lib-a:0.0.1-SNAPSHOT'
+}
